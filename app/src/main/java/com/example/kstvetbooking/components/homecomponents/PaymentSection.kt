@@ -1,6 +1,5 @@
-package com.example.kstvetbooking
+package com.example.kstvetbooking.components.homecomponents
 
-import androidx.annotation.ColorRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,89 +11,81 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.RoomPreferences
+import androidx.compose.material.icons.rounded.AccountBalance
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.kstvetbooking.data.RoomData
+import com.example.kstvetbooking.data.PaymentsData
 
-val rooms = listOf(
-    RoomData(
-        title = "Available Rooms",
-        number = 200,
+var payments = listOf(
+    PaymentsData(
+        title = "Amount Paid",
+        amount = 2000,
         color = getGradient(Color(0xffb36804), Color(0xffe9b878))
     ),
-    RoomData(
-        title = "Occupied Rooms",
-        number = 200,
+
+    PaymentsData(
+        title = "Balance",
+        amount = 2000,
         color = getGradient(Color(0xffb36804), Color(0xffe9b878))
     ),
-    RoomData(
-        title = "Booked Room",
-        number = 1,
+
+    PaymentsData(
+        title = "Amount To Be Paid",
+        amount = 4000,
         color = getGradient(Color(0xffb36804), Color(0xffe9b878))
     )
 )
 
-fun getGradient(
-    startColor: Color,
-    endColor: Color): Brush{
-    return Brush.verticalGradient(
-        colors = listOf(startColor, endColor)
-    )
-
-}
-
 @Preview
 @Composable
-fun RoomSection(){
+fun PaymentSection(){
     LazyRow{
-        items(rooms.size){index ->
-            RoomItem(index)
+        items(payments.size){
+            index ->  PayItem(index)
+
         }
     }
 }
 
 @Composable
-fun RoomItem(index: Int) {
-    val room = rooms[index]
+fun PayItem(index: Int){
+    val pay = payments[index]
     Box(modifier = Modifier
         .padding(start = 16.dp)
         .clickable {}){
         Column (
             modifier = Modifier
                 .clip(RoundedCornerShape(25.dp))
-                .background(room.color)
+                .background(pay.color)
                 .width(150.dp)
                 .height(130.dp)
                 .clickable { }
                 .padding(vertical = 12.dp, horizontal = 16.dp),
             verticalArrangement = Arrangement.SpaceEvenly
         ){
-            Icon(imageVector = Icons.Rounded.RoomPreferences,
-                contentDescription = room.title,
+            Icon(imageVector = Icons.Rounded.AccountBalance,
+                contentDescription = pay.title,
                 modifier = Modifier.width(70.dp)
-                )
+            )
 
             Text(
-                text = room.title,
+                text = pay.title,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onBackground
             )
 
             Text(
-                text = room.number.toString(),
+                text = pay.amount.toString(),
                 fontSize = 30.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onBackground
@@ -102,3 +93,4 @@ fun RoomItem(index: Int) {
         }
     }
 }
+

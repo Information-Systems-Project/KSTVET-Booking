@@ -1,4 +1,4 @@
-package com.example.kstvetbooking
+package com.example.kstvetbooking.components.homecomponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
@@ -6,7 +6,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.SupervisedUserCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -46,15 +45,16 @@ fun BottomNavBar(){
                         Icon(
                             imageVector = item.icon,
                             contentDescription = item.title,
-                            tint = MaterialTheme.colorScheme.onBackground
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     },
                     label = {
                         Text(
                             text = item.title,
-                            color = MaterialTheme.colorScheme.onBackground
+                            color = MaterialTheme.colorScheme.secondary
                         )
-                    })
+                    }
+                )
             }
         }
     }

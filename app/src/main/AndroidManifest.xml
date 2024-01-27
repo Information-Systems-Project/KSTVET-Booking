@@ -13,15 +13,31 @@
         android:theme="@style/Theme.KSTVETBooking"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".BookingActivity"
+            android:exported="false"
+            android:label="@string/title_activity_booking"
+            android:theme="@style/Theme.KSTVETBooking" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.KSTVETBooking" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.KSTVETBooking">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.KSTVETBooking" />
     </application>
 
 </manifest>

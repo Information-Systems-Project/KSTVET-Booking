@@ -1,4 +1,4 @@
-package com.example.kstvetbooking
+package com.example.kstvetbooking.components.homecomponents
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,7 +26,7 @@ fun TopSection(){
             text = "Student Name",
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.primary
             )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -34,7 +34,7 @@ fun TopSection(){
         Text(
             text = "ADM No. 2023CS155178",
             fontSize = 16.sp,
-            color = MaterialTheme.colorScheme.onBackground
+            color = MaterialTheme.colorScheme.secondary
         )
 
     }

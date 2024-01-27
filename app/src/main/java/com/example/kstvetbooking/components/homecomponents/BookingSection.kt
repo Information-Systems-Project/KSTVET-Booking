@@ -1,4 +1,4 @@
-package com.example.kstvetbooking
+package com.example.kstvetbooking.components.homecomponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
