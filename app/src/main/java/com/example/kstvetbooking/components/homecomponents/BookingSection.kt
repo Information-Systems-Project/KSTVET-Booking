@@ -1,5 +1,6 @@
 package com.example.kstvetbooking.components.homecomponents
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,14 +18,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.kstvetbooking.BookingActivity
+import com.example.kstvetbooking.PaymentActivity
 
 @Preview(showBackground = true)
 @Composable
 fun BookingSection(){
+    val context = LocalContext.current
     Box(modifier = Modifier
         .fillMaxWidth()
         .padding(top = 16.dp, bottom = 16.dp),
@@ -39,7 +44,9 @@ fun BookingSection(){
                     .fillMaxWidth(fraction = .8f)
                     .clip(RoundedCornerShape(5.dp))
                     .align(Alignment.CenterHorizontally),
-                onClick = { /*TODO*/ },
+                onClick = {
+                          context.startActivity(Intent(context, BookingActivity::class.java))
+                },
             ) {
                 Text(
                     modifier = Modifier
@@ -57,7 +64,9 @@ fun BookingSection(){
                     .fillMaxWidth(fraction = .8f)
                     .clip(RoundedCornerShape(5.dp))
                     .align(Alignment.CenterHorizontally),
-                onClick = { /*TODO*/ },
+                onClick = {
+                          context.startActivity(Intent(context, PaymentActivity::class.java))
+                },
             ) {
                 Text(
                     modifier = Modifier

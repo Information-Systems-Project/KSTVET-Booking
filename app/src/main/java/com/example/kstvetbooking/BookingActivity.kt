@@ -1,5 +1,6 @@
 package com.example.kstvetbooking
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -58,6 +60,8 @@ class BookingActivity : ComponentActivity() {
 @Preview
 @Composable
 fun Booking(){
+
+    val context = LocalContext.current
     Scaffold(
         bottomBar = {
             BottomNavBar()
@@ -73,9 +77,11 @@ fun Booking(){
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .align(Alignment.CenterHorizontally),
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+                    .padding(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceEvenly
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
                     modifier = Modifier
@@ -84,15 +90,17 @@ fun Booking(){
                     text = "Available Room",
                     fontWeight = FontWeight.Bold,
                     fontSize = 32.sp,
+                    color = MaterialTheme.colorScheme.primary
                 )
 
                 Text(
                     modifier = Modifier
-                        .fillMaxWidth()
+                        .fillMaxWidth(.5f)
                         .align(Alignment.CenterHorizontally),
                     text = "A01B02",
                     fontWeight = FontWeight.Bold,
                     fontSize = 32.sp,
+                    color = MaterialTheme.colorScheme.primary,
                 )
 
                 Button(
@@ -100,7 +108,9 @@ fun Booking(){
                         .fillMaxWidth(fraction = .8f)
                         .clip(RoundedCornerShape(5.dp))
                         .align(Alignment.CenterHorizontally),
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                              context.startActivity(Intent(context, PaymentActivity::class.java))
+                    },
                 ) {
                     Text(
                         modifier = Modifier
@@ -116,7 +126,9 @@ fun Booking(){
                         .fillMaxWidth(fraction = .8f)
                         .clip(RoundedCornerShape(5.dp))
                         .align(Alignment.CenterHorizontally),
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                              context.startActivity(Intent(context, MainActivity::class.java))
+                    },
                 ) {
                     Text(
                         modifier = Modifier

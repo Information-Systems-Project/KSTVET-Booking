@@ -24,16 +24,16 @@ fun TopSection(){
     ){
         Text(
             text = "Student Name",
-            fontSize = 28.sp,
+            fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary
             )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(2.dp))
 
         Text(
             text = "ADM No. 2023CS155178",
-            fontSize = 16.sp,
+            fontSize = 14.sp,
             color = MaterialTheme.colorScheme.secondary
         )
 
