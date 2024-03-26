@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "410245236832",
+    "project_id": "kstvet-booking",
+    "storage_bucket": "kstvet-booking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410245236832:android:4fb400498d394f09af5b05",
+        "android_client_info": {
+          "package_name": "com.alfabett.kstvetbooking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXlu3UMBL9SSI-f3jaBOhGTe5hWu3jw4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
