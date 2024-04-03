@@ -3,6 +3,7 @@ package com.alfabett.kstvetbooking
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,17 +16,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.alfabett.kstvetbooking.components.homecomponents.BookingSection
 import com.alfabett.kstvetbooking.components.homecomponents.BottomNavBar
 import com.alfabett.kstvetbooking.components.homecomponents.PaymentSection
 import com.alfabett.kstvetbooking.components.homecomponents.RoomSection
 import com.alfabett.kstvetbooking.components.homecomponents.TopSection
+import com.alfabett.kstvetbooking.db.DbConnect
 import com.alfabett.kstvetbooking.ui.theme.KSTVETBookingTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class MainActivity : ComponentActivity() {
+    private val dbvm by viewModels<DbConnect>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -36,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    HomeScreen()
+                    HomeScreen(dbvm)
                 }
             }
         }
@@ -51,9 +53,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview(showBackground = true)
+
 @Composable
-fun HomeScreen(){
+fun HomeScreen(db_connect:DbConnect){
     Scaffold (
         bottomBar = {
             BottomNavBar()
@@ -64,7 +66,7 @@ fun HomeScreen(){
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            TopSection()
+            TopSection(db_connect)
             RoomSection()
             Spacer(modifier = Modifier.height(32.dp))
             PaymentSection()

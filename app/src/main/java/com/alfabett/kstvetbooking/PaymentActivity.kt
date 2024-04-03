@@ -3,6 +3,7 @@ package com.alfabett.kstvetbooking
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -34,13 +35,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.alfabett.kstvetbooking.components.homecomponents.BottomNavBar
+import com.alfabett.kstvetbooking.db.DbConnect
 import com.alfabett.kstvetbooking.ui.theme.KSTVETBookingTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class PaymentActivity : ComponentActivity() {
+    private val dbvm by viewModels<DbConnect>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -51,7 +53,7 @@ class PaymentActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    PaymentPage()
+                    PaymentPage(dbvm)
                 }
             }
         }
@@ -66,9 +68,8 @@ class PaymentActivity : ComponentActivity() {
     }
 }
 
-@Preview
 @Composable
-fun PaymentPage(){
+fun PaymentPage(db_connect:DbConnect){
 
     var amount by remember{
         mutableStateOf(TextFieldValue())
@@ -128,8 +129,8 @@ fun PaymentPage(){
                 label = {
                     Text(text = "Transaction Code")
                 },
-                onValueChange = {pwd ->
-                    transaction_code = pwd
+                onValueChange = { tr_code ->
+                    transaction_code = tr_code
                 },
                 placeholder = {
                     Text(text = "Enter The Transaction Code")
@@ -151,6 +152,7 @@ fun PaymentPage(){
 
             Button(
                 onClick = {
+                    db_connect.book_room(amount.text.toInt(), context)
 //                    context.startActivity(Intent(context, MainActivity::class.java))
                 }
             ) {

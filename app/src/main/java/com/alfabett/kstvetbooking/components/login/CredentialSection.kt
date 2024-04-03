@@ -1,6 +1,7 @@
 package com.alfabett.kstvetbooking.components.login
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -32,6 +33,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alfabett.kstvetbooking.RegisterActivity
+import com.alfabett.kstvetbooking.data.RegUser
 import com.alfabett.kstvetbooking.db.DbConnect
 
 @Composable
@@ -113,7 +115,14 @@ fun CredentialSection(dbConnect: DbConnect){
 
         Button(
             onClick = {
-                dbConnect.loginUser(email.toString(), password.toString(), context)
+                val reg_user = RegUser(
+                    email = email.text,
+                    password = password.text
+                )
+                if(reg_user.email.isNotBlank() || reg_user.password.isNotBlank())
+                    dbConnect.loginUser(reg_user, context)
+                else
+                    Toast.makeText(context, "Fields Cannot Be Empty", Toast.LENGTH_LONG).show()
             }
         ) {
             Text(text = "Sign Up")

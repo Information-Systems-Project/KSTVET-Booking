@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,15 +24,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alfabett.kstvetbooking.components.homecomponents.BottomNavBar
 import com.alfabett.kstvetbooking.components.homecomponents.TopSection
+import com.alfabett.kstvetbooking.db.DbConnect
 import com.alfabett.kstvetbooking.ui.theme.KSTVETBookingTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 class BookingActivity : ComponentActivity() {
+    private val dbvm by viewModels<DbConnect>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -42,7 +44,7 @@ class BookingActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Booking()
+                    Booking(dbvm)
                 }
             }
         }
@@ -57,9 +59,8 @@ class BookingActivity : ComponentActivity() {
     }
 }
 
-@Preview
 @Composable
-fun Booking(){
+fun Booking(dbConnect: DbConnect){
 
     val context = LocalContext.current
     Scaffold(
@@ -72,7 +73,7 @@ fun Booking(){
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            TopSection()
+            TopSection(dbConnect)
 
             Column(
                 modifier = Modifier
@@ -97,7 +98,7 @@ fun Booking(){
                     modifier = Modifier
                         .fillMaxWidth(.5f)
                         .align(Alignment.CenterHorizontally),
-                    text = "A01B02",
+                    text = dbConnect.getEmptyRoom(),
                     fontWeight = FontWeight.Bold,
                     fontSize = 32.sp,
                     color = MaterialTheme.colorScheme.primary,

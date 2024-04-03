@@ -36,6 +36,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alfabett.kstvetbooking.LoginActivity
+import com.alfabett.kstvetbooking.data.RegUser
+import com.alfabett.kstvetbooking.data.User
 import com.alfabett.kstvetbooking.db.DbConnect
 
 @Composable
@@ -259,7 +261,19 @@ fun InputSection(dbConnect: DbConnect){
 
         Button(
             onClick = {
-                dbConnect.regUser(email.toString(), password.toString(), context)
+                val new_user = User(
+                    name = user_name.text,
+                    adm = adm_no.text,
+                    email = email.text,
+                    phone = phone_number.text,
+                    gender = gender.text,
+                    password = password.text
+                )
+                val reg_user = RegUser(
+                    email = email.text,
+                    password = password.text
+                )
+                dbConnect.regUser(reg_user, new_user, context)
             }
         ) {
             Text(text = "Log In")
