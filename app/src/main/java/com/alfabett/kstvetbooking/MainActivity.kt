@@ -25,11 +25,20 @@ import com.alfabett.kstvetbooking.components.homecomponents.TopSection
 import com.alfabett.kstvetbooking.db.DbConnect
 import com.alfabett.kstvetbooking.ui.theme.KSTVETBookingTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.firebase.auth.FirebaseAuth
+
 
 class MainActivity : ComponentActivity() {
     private val dbvm by viewModels<DbConnect>()
+    val user:String? = FirebaseAuth.getInstance().currentUser?.uid
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (user != null) {
+            dbvm.getUserDetails(user)
+            dbvm.getBookingDetails(user)
+        }
+
         setContent {
             KSTVETBookingTheme {
                 // A surface container using the 'background' color from the theme
@@ -38,9 +47,17 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    HomeScreen(dbvm)
+                    HomeScreen(dbvm, user.toString())
                 }
             }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (user != null) {
+            dbvm.getUserDetails(user)
+            dbvm.getBookingDetails(user)
         }
     }
 
@@ -55,7 +72,7 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun HomeScreen(db_connect:DbConnect){
+fun HomeScreen(db_connect:DbConnect, user_id:String){
     Scaffold (
         bottomBar = {
             BottomNavBar()
@@ -66,10 +83,10 @@ fun HomeScreen(db_connect:DbConnect){
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            TopSection(db_connect)
+            TopSection(db_connect, user_id)
             RoomSection()
             Spacer(modifier = Modifier.height(32.dp))
-            PaymentSection()
+            PaymentSection(db_connect, user_id)
             Spacer(modifier = Modifier.height(32.dp))
             BookingSection()
         }

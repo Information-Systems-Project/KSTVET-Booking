@@ -18,6 +18,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,13 +31,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alfabett.kstvetbooking.components.homecomponents.BottomNavBar
+import com.alfabett.kstvetbooking.components.homecomponents.PaymentSection
 import com.alfabett.kstvetbooking.components.homecomponents.TopSection
 import com.alfabett.kstvetbooking.db.DbConnect
 import com.alfabett.kstvetbooking.ui.theme.KSTVETBookingTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.firebase.auth.FirebaseAuth
+
 
 class BookingActivity : ComponentActivity() {
     private val dbvm by viewModels<DbConnect>()
+    val user: String? = FirebaseAuth.getInstance().currentUser?.uid
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -44,7 +52,7 @@ class BookingActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Booking(dbvm)
+                    Booking(dbvm, user.toString())
                 }
             }
         }
@@ -60,9 +68,12 @@ class BookingActivity : ComponentActivity() {
 }
 
 @Composable
-fun Booking(dbConnect: DbConnect){
-
+fun Booking(dbConnect: DbConnect, user_id:String){
+    dbConnect.getEmptyRoom()
     val context = LocalContext.current
+    var available_room by remember {
+        mutableStateOf(dbConnect.getEmptyRoom())
+    }
     Scaffold(
         bottomBar = {
             BottomNavBar()
@@ -73,8 +84,8 @@ fun Booking(dbConnect: DbConnect){
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            TopSection(dbConnect)
-
+            TopSection(dbConnect, user_id)
+            PaymentSection(dbConnect = dbConnect, user_id = user_id)
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -98,7 +109,7 @@ fun Booking(dbConnect: DbConnect){
                     modifier = Modifier
                         .fillMaxWidth(.5f)
                         .align(Alignment.CenterHorizontally),
-                    text = dbConnect.getEmptyRoom(),
+                    text = available_room,
                     fontWeight = FontWeight.Bold,
                     fontSize = 32.sp,
                     color = MaterialTheme.colorScheme.primary,

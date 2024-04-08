@@ -40,9 +40,11 @@ import com.alfabett.kstvetbooking.components.homecomponents.BottomNavBar
 import com.alfabett.kstvetbooking.db.DbConnect
 import com.alfabett.kstvetbooking.ui.theme.KSTVETBookingTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.firebase.auth.FirebaseAuth
 
 class PaymentActivity : ComponentActivity() {
     private val dbvm by viewModels<DbConnect>()
+    val user = FirebaseAuth.getInstance().currentUser!!.uid.toString()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -53,7 +55,7 @@ class PaymentActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    PaymentPage(dbvm)
+                    PaymentPage(dbvm, user)
                 }
             }
         }
@@ -69,7 +71,7 @@ class PaymentActivity : ComponentActivity() {
 }
 
 @Composable
-fun PaymentPage(db_connect:DbConnect){
+fun PaymentPage(db_connect:DbConnect, user_id:String){
 
     var amount by remember{
         mutableStateOf(TextFieldValue())
@@ -152,7 +154,7 @@ fun PaymentPage(db_connect:DbConnect){
 
             Button(
                 onClick = {
-                    db_connect.book_room(amount.text.toInt(), context)
+                    db_connect.book_room(amount.text.toInt(), user_id, context)
 //                    context.startActivity(Intent(context, MainActivity::class.java))
                 }
             ) {

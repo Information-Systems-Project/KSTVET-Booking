@@ -3,8 +3,6 @@ package com.alfabett.kstvetbooking.components.homecomponents
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.AccountCircle
-import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,15 +19,15 @@ val items = listOf(
         icon = Icons.Rounded.Home
     ),
 
-    BottonBar(
-        title = "History",
-        icon = Icons.Rounded.History
-    ),
-
-    BottonBar(
-        title = "Profile",
-        icon = Icons.Rounded.AccountCircle
-    ),
+//    BottonBar(
+//        title = "History",
+//        icon = Icons.Rounded.History
+//    ),
+//
+//    BottonBar(
+//        title = "Profile",
+//        icon = Icons.Rounded.AccountCircle
+//    ),
 )
 
 @Composable

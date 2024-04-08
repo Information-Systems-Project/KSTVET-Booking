@@ -116,8 +116,8 @@ fun CredentialSection(dbConnect: DbConnect){
         Button(
             onClick = {
                 val reg_user = RegUser(
-                    email = email.text,
-                    password = password.text
+                    email = email.text.toString(),
+                    password = password.text.toString()
                 )
                 if(reg_user.email.isNotBlank() || reg_user.password.isNotBlank())
                     dbConnect.loginUser(reg_user, context)

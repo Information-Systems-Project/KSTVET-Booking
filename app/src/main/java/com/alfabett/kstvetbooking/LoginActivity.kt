@@ -1,5 +1,6 @@
 package com.alfabett.kstvetbooking
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,22 +25,29 @@ import com.alfabett.kstvetbooking.components.login.LogoSection
 import com.alfabett.kstvetbooking.db.DbConnect
 import com.alfabett.kstvetbooking.ui.theme.KSTVETBookingTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : ComponentActivity() {
+    var user = FirebaseAuth.getInstance().currentUser?.uid
     private val dbvm by viewModels<DbConnect>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            KSTVETBookingTheme {
-                // A surface container using the 'background' color from the theme
-                setBarColor(color = MaterialTheme.colorScheme.background)
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    LoginScreen(dbvm)
+        if (user == null){
+            setContent {
+                KSTVETBookingTheme {
+                    // A surface container using the 'background' color from the theme
+                    setBarColor(color = MaterialTheme.colorScheme.background)
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colorScheme.background
+                    ) {
+                        LoginScreen(dbvm)
+                    }
                 }
             }
+        } else {
+            val intent = Intent(this, MainActivity::class.java)
+            this.startActivity(intent)
         }
     }
 
